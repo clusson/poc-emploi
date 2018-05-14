@@ -1,7 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <v-btn color="info">Info</v-btn>
+    <v-btn to="/declare" color="danger">{{start}}</v-btn>
+
   </div>
 </template>
 
@@ -10,7 +11,8 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Bienvenue sur le site de POC Emploi'
+      msg: 'Bienvenue sur le site de POC Emploi',
+      start: 'Commencer'
     }
   }
 }
