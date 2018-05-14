@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
 
     <v-toolbar fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
