@@ -6,6 +6,7 @@
       <v-card-title primary-title>
             <h3 class="headline mb-0">{{ msg }}</h3>
             <v-btn to="/declare" color="danger">{{start}}</v-btn>
+            <v-btn to="/emotion" color="danger">{{bEmotion}}</v-btn>
       </v-card-title>
       </v-card>
       </v-flex>
@@ -20,7 +21,8 @@ export default {
   data () {
     return {
       msg: 'Bienvenue sur le site de POC Emploi',
-      start: 'Déclarer ma situation'
+      start: 'Déclarer ma situation',
+      bEmotion: 'Commencer la reconaissance d\'émotions'
     }
   }
 }
