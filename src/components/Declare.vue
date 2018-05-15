@@ -51,37 +51,31 @@
         </v-flex>
         <v-flex xs4>
           <v-subheader>Depuis</v-subheader>
-        <v-date-picker v-model="date"></v-date-picker>
+        <v-date-picker locale="fr-fr" v-model="date"></v-date-picker>
         </v-flex>
         </v-layout>
         <v-btn flat @click.native="e1 = 1">Précédent</v-btn>
         <v-btn color="primary" @click.native="e1 = 3" v-on:click="submit2" class="{ disabled: isDisabled2 }" :disabled="isDisabled2">Continuer</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-        <v-card>
-        <v-card-title primary-title>
+        <v-list>
           <div>
             <h3 class="headline mb-0">Votre récapitulatif</h3>
-              <li v-if="this.userInfo[0] && this.userInfo[0].length > 3">
-                <ul>Votre nom : {{this.userInfo[0].lastName}}</ul>
-                <ul>Votre prénom : {{this.userInfo[0].firstName}}</ul>
-                <ul>Votre email : {{this.userInfo[0].email}}</ul>
-                <ul>Votre situation : {{this.userInfo[0].work}}</ul>
-                <ul>Depuis le : {{this.userInfo[0].date}}</ul>
-                </li>
+              <v-list v-if="this.userInfo[0]">
+                  <v-list-tile>Votre nom : {{this.userInfo[0].lastName}}</v-list-tile>
+                  <v-list-tile>Votre prénom : {{this.userInfo[0].firstName}}</v-list-tile>
+                  <v-list-tile>Votre email : {{this.userInfo[0].email}}</v-list-tile>
+                  <v-list-tile>Votre situation : {{this.userInfo[0].work}}</v-list-tile>
+                  <v-list-tile>Depuis le : {{this.userInfo[0].date}}</v-list-tile>
+              </v-list>
           </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
-      </v-card>
+      </v-list>
 
               <h3>{{rgpd}}
               <v-switch  v-model="checkbox"></v-switch>
                 </h3>
         <v-btn flat @click.native="e1 = 2">Précédent</v-btn>
-        <v-btn color="success" @click.native="e1 = 1"  class="{ disabled: isDisabled3 }" :disabled="isDisabled3">Valider</v-btn>
+        <v-btn color="success" @click.native="e1 = 1"  to="/success" class="{ disabled: isDisabled3 }" :disabled="isDisabled3">Valider</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
@@ -91,6 +85,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "Declare",
   data() {
@@ -134,12 +130,13 @@ export default {
     submit1() {
       this.userInfo.push({
         lastName: this.lastName,
-        fisrtName: this.firstName,
+        firstName: this.firstName,
         email: this.email
       });
     },
     submit2() {
-      this.userInfo.push({ work: this.work, date: this.date });
+      const date = moment(this.date).format("DD-MM-YYYY");
+      this.userInfo.push({ work: this.work, date: date });
       Object.assign(this.userInfo[0], this.userInfo[1]);
     }
   },
