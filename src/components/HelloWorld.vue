@@ -1,17 +1,19 @@
 <template>
-  <div class="hello">
-    <v-layout>
-      <v-flex xs12 sm6 offset-sm3>
+  <v-app class="hello">
+    <h3 class="headline mb-0">{{ msg }}</h3>
     <v-card>
-      <v-card-title primary-title>
-            <h3 class="headline mb-0">{{ msg }}</h3>
-            <v-btn to="/declare" color="danger">{{start}}</v-btn>
-      </v-card-title>
-      </v-card>
-      </v-flex>
-    </v-layout>
-
-  </div>
+      <v-container fluid grid-list-lg>
+        <v-layout row wrap>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-card-title>
+              <v-btn to="/declare">{{start}}
+              <v-icon right>check_circle</v-icon></v-btn>
+            </v-card-title>
+            </v-flex>
+        </v-layout>
+      </v-container>
+    </v-card>
+  </v-app>
 </template>
 
 <script>

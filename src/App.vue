@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <v-toolbar style="position:fixed;top:0;">
+    <v-toolbar color="grey lighten-4" flat fixed>
     <v-toolbar-items>
-      <img src="./assets/logo.png" width="70" height="60">
-      <v-btn flat>Link One</v-btn>
-      <v-btn flat>Link Two</v-btn>
-      <v-btn flat>Link Three</v-btn>
+      <router-link to="/"><img src="./assets/logo.svg"  width="70" height="60"></router-link>
+        <v-btn flat v-on:click="reload"><i class="material-icons">refresh</i></v-btn>
+        <v-btn to="/"><i class="material-icons">home</i>Accueil</v-btn>
+    </v-toolbar-items>
+    <v-spacer></v-spacer>
+    <v-toolbar-items>
+      <v-btn color="error">Fermer</v-btn>
     </v-toolbar-items>
   </v-toolbar>
     <router-view/>
@@ -14,13 +17,18 @@
 
 <script>
 export default {
-  name: 'App'
-}
+  name: "App",
+  methods: {
+    reload: function() {
+      location.reload();
+    }
+  }
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
