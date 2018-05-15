@@ -1,11 +1,12 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Entry from '@/components/Entry'
-import Declare from '@/components/Declare'
-import Success from '@/components/Success'
-Vue.use(Router)
+import Vue from 'vue';
+import Router from 'vue-router';
+import Entry from '@/components/Entry';
+import Declare from '@/components/Declare';
+import Success from '@/components/Success';
+Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -23,4 +24,4 @@ export default new Router({
       component: Success
     }
   ]
-})
+});
