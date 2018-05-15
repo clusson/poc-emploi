@@ -51,37 +51,31 @@
         </v-flex>
         <v-flex xs4>
           <v-subheader>Depuis</v-subheader>
-        <v-date-picker v-model="date"></v-date-picker>
+        <v-date-picker locale="fr-fr" v-model="date"></v-date-picker>
         </v-flex>
         </v-layout>
         <v-btn flat @click.native="e1 = 1">Précédent</v-btn>
         <v-btn color="primary" @click.native="e1 = 3" v-on:click="submit2" class="{ disabled: isDisabled2 }" :disabled="isDisabled2">Continuer</v-btn>
       </v-stepper-content>
       <v-stepper-content step="3">
-        <v-card>
-        <v-card-title primary-title>
+        <v-list>
           <div>
             <h3 class="headline mb-0">Votre récapitulatif</h3>
-              <li v-if="this.userInfo[0] && this.userInfo[0].length > 3">
-                <ul>Votre nom : {{this.userInfo[0].lastName}}</ul>
-                <ul>Votre prénom : {{this.userInfo[0].firstName}}</ul>
-                <ul>Votre email : {{this.userInfo[0].email}}</ul>
-                <ul>Votre situation : {{this.userInfo[0].work}}</ul>
-                <ul>Depuis le : {{this.userInfo[0].date}}</ul>
-                </li>
+              <v-list v-if="this.userInfo[0]">
+                  <v-list-tile>Votre nom : {{this.userInfo[0].lastName}}</v-list-tile>
+                  <v-list-tile>Votre prénom : {{this.userInfo[0].firstName}}</v-list-tile>
+                  <v-list-tile>Votre email : {{this.userInfo[0].email}}</v-list-tile>
+                  <v-list-tile>Votre situation : {{this.userInfo[0].work}}</v-list-tile>
+                  <v-list-tile>Depuis le : {{this.userInfo[0].date}}</v-list-tile>
+              </v-list>
           </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
-      </v-card>
+      </v-list>
 
               <h3>{{rgpd}}
               <v-switch  v-model="checkbox"></v-switch>
                 </h3>
         <v-btn flat @click.native="e1 = 2">Précédent</v-btn>
-        <v-btn color="success" @click.native="e1 = 1"  class="{ disabled: isDisabled3 }" :disabled="isDisabled3">Valider</v-btn>
+        <v-btn color="success" @click.native="e1 = 1"  to="/success" class="{ disabled: isDisabled3 }" :disabled="isDisabled3">Valider</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
@@ -91,7 +85,10 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
+<<<<<<< HEAD
     name: 'Declare',
     data() {
         return {
@@ -139,6 +136,78 @@ export default {
             this.userInfo.push({ work: this.work, date: this.date })
             Object.assign(this.userInfo[0], this.userInfo[1])
         }
+=======
+  name: "Declare",
+  data() {
+    return {
+      picker: null,
+      userInfo: [],
+      valid: true,
+      lastName: "",
+      rgpd:
+        "En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées dans le cadre de la recherche d'emploi et des statistiques de Pôle Emploi.",
+      lastNameRules: [
+        v => !!v || "Votre nom est requis",
+        v =>
+          (v && v.length <= 20) || "Le nom doit être inférieur à 20 caractères"
+      ],
+      firstName: "",
+      firstNameRules: [
+        v => !!v || "Votre prénom est requis",
+        v =>
+          (v && v.length <= 20) ||
+          "Le prénom doit être inférieur à 20 caractères"
+      ],
+      email: "",
+      emailRules: [
+        v => !!v || "Votre E-mail est requis",
+        v =>
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+          "L'email doit être valide"
+      ],
+      work: "",
+      select: "",
+      date: "",
+      items: ["Sans Emploi", "Employé", "Etudiant"],
+      checkbox: false,
+      e1: 0,
+      msg: "Déclarer votre situation",
+      retour: "Retour à l'accueil"
+    };
+  },
+  methods: {
+    submit1() {
+      this.userInfo.push({
+        lastName: this.lastName,
+        firstName: this.firstName,
+        email: this.email
+      });
+    },
+    submit2() {
+      const date = moment(this.date).format("DD-MM-YYYY");
+      this.userInfo.push({ work: this.work, date: date });
+      Object.assign(this.userInfo[0], this.userInfo[1]);
+    }
+  },
+  computed: {
+    isDisabled() {
+      if (
+        this.lastName.length > 0 &&
+        this.firstName.length > 0 &&
+        this.email.length > 0
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    isDisabled2() {
+      if (this.date != "") {
+        return false;
+      } else {
+        return true;
+      }
+>>>>>>> 2e8aef11973aac8d672058473af29c4f71af96bc
     },
     computed: {
         isDisabled() {
