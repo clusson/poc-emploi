@@ -88,55 +88,6 @@
 import moment from "moment";
 
 export default {
-<<<<<<< HEAD
-    name: 'Declare',
-    data() {
-        return {
-            picker: null,
-            userInfo: [],
-            valid: true,
-            lastName: '',
-            rgpd:
-                "En soumettant ce formulaire, j'accepte que les informations saisies soient exploitées dans le cadre de la recherche d'emploi et des statistiques de Pôle Emploi.",
-            lastNameRules: [
-                v => !!v || 'Votre nom est requis',
-                v => (v && v.length <= 20) || 'Le nom doit être inférieur à 20 caractères'
-            ],
-            firstName: '',
-            firstNameRules: [
-                v => !!v || 'Votre prénom est requis',
-                v => (v && v.length <= 20) || 'Le prénom doit être inférieur à 20 caractères'
-            ],
-            email: '',
-            emailRules: [
-                v => !!v || 'Votre E-mail est requis',
-                v =>
-                    /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                    "L'email doit être valide"
-            ],
-            work: '',
-            select: '',
-            date: '',
-            items: ['Sans Emploi', 'Employé', 'Etudiant'],
-            checkbox: false,
-            e1: 0,
-            msg: 'Déclarer votre situation',
-            retour: "Retour à l'accueil"
-        }
-    },
-    methods: {
-        submit1() {
-            this.userInfo.push({
-                lastName: this.lastName,
-                fisrtName: this.firstName,
-                email: this.email
-            })
-        },
-        submit2() {
-            this.userInfo.push({ work: this.work, date: this.date })
-            Object.assign(this.userInfo[0], this.userInfo[1])
-        }
-=======
   name: "Declare",
   data() {
     return {
@@ -207,35 +158,19 @@ export default {
       } else {
         return true;
       }
->>>>>>> 2e8aef11973aac8d672058473af29c4f71af96bc
     },
-    computed: {
-        isDisabled() {
-            if (this.lastName.length > 0 && this.firstName.length > 0 && this.email.length > 0) {
-                return false
-            } else {
-                return true
-            }
-        },
-        isDisabled2() {
-            if (this.date != '') {
-                return false
-            } else {
-                return true
-            }
-        },
-        isDisabled3() {
-            if (this.checkbox === true) {
-                return false
-            } else {
-                return true
-            }
-        }
+    isDisabled3() {
+      if (this.checkbox === true) {
+        return false;
+      } else {
+        return true;
+      }
     }
-}
+  }
+};
 </script>
 <style>
 .declare {
-    margin-top: 80px;
+  margin-top: 80px;
 }
 </style>
