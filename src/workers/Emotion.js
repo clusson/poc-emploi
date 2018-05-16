@@ -39,55 +39,12 @@ return fetch(pictureLink)
     
     //Object.keys(listEmotions).reduce(previous, current)
     var emoMax = maxValueObject(listEmotions)
-    return emoMax
-    // listEmotions.forEach(function(emo){
-    //     console.log(emo)
-    // });
-    
-
+    if(emoMax == "anger"){
+        return true
+    }
+    else{
+        return false
+    }
 })
 .catch(function(res){ console.log(res) })
-
-// fetch(faceApiLink,
-// {
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/octet-stream',
-//       'Ocp-Apim-Subscription-Key': faceApiKey
-//     },
-//     method: "POST",
-//     body: '{"url": ' + '"' + sourceImageUrl + '"}'
-// })
-// .then(function(res){ console.log(res) })
-// .catch(function(res){ console.log(res) })
-// $.ajax({
-//     url: faceApiLink + "?" + $.param(params),
-
-//     // Request headers.
-//     beforeSend: function(xhrObj){
-//         xhrObj.setRequestHeader("Content-Type","application/json");
-//         xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", faceApiKey);
-//     },
-
-//     type: "POST",
-
-//     // Request body.
-//     data: '{"url": ' + '"' + sourceImageUrl + '"}',
-// })
-
-// .done(function(data) {
-//     // Show formatted JSON on webpage.
-//    return JSON.stringify(data, null, 2);
-// })
-
-// .fail(function(jqXHR, textStatus, errorThrown) {
-//     // Display error message.
-//     var errorString = (errorThrown === "") ?
-//         "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-//     errorString += (jqXHR.responseText === "") ?
-//         "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
-//             jQuery.parseJSON(jqXHR.responseText).message :
-//                 jQuery.parseJSON(jqXHR.responseText).error.message;
-//     alert(errorString);
-// });
 };

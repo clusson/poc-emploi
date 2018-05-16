@@ -15,25 +15,85 @@
 			</v-toolbar-items>
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
+      
+       <v-btn color="info" v-on:click="capture()">Activer Reco Faciale</v-btn>
+       
+       
 				<v-btn color="error">Fermer</v-btn>
+        <div style="display:none"><video  hidden activated="false" ref="video" id="video" width="640" height="480" autoplay></video>
+       <canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
+       </div>
 			</v-toolbar-items>
 		</v-toolbar>
+   
 		<router-view/>
 	</div>
 </template>
 
 <script>
+import {getEmotion} from './workers/Emotion'
 export default {
     name: 'App',
     data() {
         return {
-            help: "Demander de l'aide"
+            help: "Demander de l'aide",
+            video: {},
+            canvas: {},
+           
+
         };
+    },
+    mounted() {
+    this.video = this.$refs.video;
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+            this.video.src = window.URL.createObjectURL(stream);
+            this.video.play();
+        });
+        }
     },
     methods: {
         reload: function() {
             location.reload();
-        }
+        },
+        capture() {
+        this.canvas = this.$refs.canvas;
+        
+        //getEmotion(this.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480));
+        var context = this.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480);
+        //this.captures.push(canvas.toDataURL("image/png"));
+       
+       const self = this;
+        getEmotion(canvas.toDataURL("image/jpeg"))
+        .then(function(emotionMax){
+          if(emotionMax){
+            
+            self.snackbar()
+          }
+          
+        })
+        setTimeout(function(){ self.capture() }, 3000);
+       // console.log(context);
+       // console.log(canvas.toDataURL("image/png"));
+    },
+    snackbar() {
+                this.$snackbar.open({
+                    duration: 60000,
+                    message: 'Demandez de l\'aide:' ,
+                    type: 'is-success',
+                    position: 'is-bottom-right',
+                    actionText: 'Appellez un agent en cliquant ici',
+                    queue: true,
+                    onAction: () => {
+                        this.$toast.open({
+                            message: 'Quelqun va venir vous aider, patientez, merci',
+                            duration: 10000,
+                            queue: true
+                        })
+                    }
+                })
+            }
+    
     }
 };
 </script>
@@ -45,5 +105,9 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+}
+.notices .snackbar .text {
+    padding: 0.5em 1em;
+    margin-bottom: 0;
 }
 </style>
