@@ -1,13 +1,12 @@
 
 import io from 'socket.io-client'
 
-console.log(process.env.SOCKETIO_COGNITIVE_URI)
 const socket = io.connect(process.env.SOCKETIO_COGNITIVE_URI)
 
 let initAngry = false
 
 socket.on('message', res => {
-    initAngry = res.mood
+    initAngry = res.anger
 })
 
 export const getEmotion = (pictureLink) => {

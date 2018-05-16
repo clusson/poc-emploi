@@ -79,7 +79,7 @@ export default {
         snackbar() {
             this.$snackbar.open({
                 duration: 60000,
-                message: "Demander de l'aide:",
+                message: "Demander de l'aide :",
                 type: 'is-success',
                 position: 'is-bottom-right',
                 actionText: 'Appeller un agent en cliquant ici',
