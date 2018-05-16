@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  SOCKETIO_URI: '"90.93.29.53"'
+  SOCKETIO_URI: '"pocemploi.team-pdf.eu"'
 }
