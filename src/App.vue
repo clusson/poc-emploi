@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { getEmotion } from './workers/Emotion'
+import { getEmotion, isAngry } from './workers/Emotion'
 export default {
     name: 'App',
     data() {
