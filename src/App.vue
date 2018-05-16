@@ -30,79 +30,71 @@
 </template>
 
 <script>
-import {getEmotion} from './workers/Emotion'
+import { getEmotion } from './workers/Emotion'
 export default {
     name: 'App',
     data() {
         return {
             help: "Demander de l'aide",
-            message:"Activer la reco faciale",
+            message: 'Activer la reco faciale',
             cameraOn: false,
             video: {},
-            canvas: {},
-           
-
-        };
+            canvas: {}
+        }
     },
     mounted() {
-    this.video = this.$refs.video;
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-            this.video.src = window.URL.createObjectURL(stream);
-            this.video.play();
-        });
+        this.video = this.$refs.video
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+                this.video.src = window.URL.createObjectURL(stream)
+                this.video.play()
+            })
         }
     },
     methods: {
         reload: function() {
-            location.reload();
+            location.reload()
         },
         capture() {
-        this.canvas = this.$refs.canvas;
-        
-        //getEmotion(this.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480));
-        var context = this.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480);
-        //this.captures.push(canvas.toDataURL("image/png"));
-       
-       const self = this;
-       //console.log(canvas.toDataURL("image/jpeg"))
-        getEmotion(canvas.toDataURL("image/jpeg"))
-        .then(function(emotionMax){
-          if(emotionMax){
-            
-            self.snackbar()
-          }
-          
-        })
-        if(this.cameraOn){
-           this.message = 'Arretter la reco faciale'
-        setTimeout(function(){ self.capture() }, 3000);
-        }else{
-          this.message = 'Activer la reco faciale'
-        }
-       // console.log(context);
-       // console.log(canvas.toDataURL("image/png"));
-    },
-    snackbar() {
-                this.$snackbar.open({
-                    duration: 60000,
-                    message: 'Demandez de l\'aide:' ,
-                    type: 'is-success',
-                    position: 'is-bottom-right',
-                    actionText: 'Appellez un agent en cliquant ici',
-                    queue: true,
-                    onAction: () => {
-                        this.$toast.open({
-                            message: 'Quelqun va venir vous aider, patientez, merci',
-                            duration: 10000,
-                            queue: true
-                        })
-                    }
-                })
+            this.canvas = this.$refs.canvas
+
+            const context = this.canvas.getContext('2d').drawImage(this.video, 0, 0, 640, 480)
+
+            const self = this
+            getEmotion(canvas.toDataURL('image/jpeg'))
+
+            if (isAngry()) {
+                self.snackbar()
             }
-    
+
+            if (this.cameraOn) {
+                this.message = 'Arrêter la reco faciale'
+                setTimeout(function() {
+                    self.capture()
+                }, 3000)
+            } else {
+                this.message = 'Activer la reco faciale'
+            }
+        },
+        snackbar() {
+            this.$snackbar.open({
+                duration: 60000,
+                message: "Demander de l'aide:",
+                type: 'is-success',
+                position: 'is-bottom-right',
+                actionText: 'Appeller un agent en cliquant ici',
+                queue: true,
+                onAction: () => {
+                    this.$toast.open({
+                        message: 'Merci de patienter, un agent va se rendre disponible',
+                        duration: 10000,
+                        queue: true
+                    })
+                }
+            })
+        }
     }
-};
+}
 </script>
 
 <style>
