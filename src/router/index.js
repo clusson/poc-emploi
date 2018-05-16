@@ -1,17 +1,17 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Declare from '@/components/Declare'
-import Emotion from '@/components/Emotion'
-
-Vue.use(Router)
+import Vue from 'vue';
+import Router from 'vue-router';
+import Entry from '@/components/Entry';
+import Declare from '@/components/Declare';
+import Success from '@/components/Success';
+Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Entry',
+      component: Entry
     },
     {
       path: '/declare',
@@ -22,6 +22,11 @@ export default new Router({
       path: '/emotion',
       name: 'Emotion',
       component: Emotion
+    },
+    {
+      path: '/success',
+      name: 'Success',
+      component: Success
     }
   ]
-})
+});
