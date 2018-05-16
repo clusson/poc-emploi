@@ -1,15 +1,19 @@
 <template>
 	<v-app class="hello">
-		<h3 class="headline mb-0">{{ msg }}</h3>
+		<h3 class="headline mb-0">{{ home }}</h3>
 		<v-card>
 			<v-container fluid grid-list-lg>
 				<v-layout row wrap>
 					<v-flex xs12 sm6 offset-sm3>
-						<v-card-title>
-							<v-btn to="/declare">{{start}}
-								<v-icon right>check_circle</v-icon>
-							</v-btn>
-						</v-card-title>
+						<b-message title="Déclaration" type="is-info">
+							{{msg}} Commencez par déclarer votre situation !
+						</b-message>
+						<v-btn color="info" to="/declare">
+							<span>{{start}}</span>
+							<i class="material-icons">
+								check_circle
+							</i>
+						</v-btn>
 					</v-flex>
 				</v-layout>
 			</v-container>
@@ -22,6 +26,7 @@ export default {
     name: 'Entry',
     data() {
         return {
+            home: 'Portail POC Emploi',
             msg: 'Bienvenue sur le site de POC Emploi',
             start: 'Déclarer ma situation'
         };
@@ -30,7 +35,4 @@ export default {
 };
 </script>
 <style>
-.hello {
-    margin-top: 80px;
-}
 </style>

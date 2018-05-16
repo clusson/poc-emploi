@@ -11,10 +11,10 @@
 			</v-stepper-header>
 			<v-stepper-items>
 				<v-stepper-content class="step1" step="1">
-					<v-form>
-						<v-text-field v-model="lastName" :rules="lastNameRules" :counter="20" label="Nom" required></v-text-field>
-						<v-text-field v-model="firstName" :rules="firstNameRules" :counter="20" label="Prénom" required></v-text-field>
-						<v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
+					<v-form style="margin:0 auto;width:50%">
+						<v-text-field v-model="lastName" :rules="lastNameRules" :counter="20" label="Votre nom" required></v-text-field>
+						<v-text-field v-model="firstName" :rules="firstNameRules" :counter="20" label="Votre prénom" required></v-text-field>
+						<v-text-field v-model="email" :rules="emailRules" label="Votre e-mail" required></v-text-field>
 					</v-form>
 					<v-btn to="/" flat>Retour à l'accueil</v-btn>
 					<v-btn color="primary" @click.native="e1 = 2" v-on:click="submit1" class="{ disabled: isDisabled }" :disabled="isDisabled">Continuer</v-btn>
@@ -54,10 +54,10 @@
 							</v-list>
 						</div>
 					</v-list>
-
-					<h3>{{rgpd}}
-						<v-switch v-model="checkbox"></v-switch>
-					</h3>
+					<b-message id="rgpd" title="Données personnelles" has-icon>
+						<b-switch type="is-success" v-model="checkbox"></b-switch>
+						<span>{{rgpd}}</span>
+					</b-message>
 					<v-btn flat @click.native="e1 = 2">Précédent</v-btn>
 					<v-btn color="success" @click.native="e1 = 1" to="/success" class="{ disabled: isDisabled3 }" :disabled="isDisabled3">Valider</v-btn>
 				</v-stepper-content>
@@ -147,7 +147,8 @@ export default {
 };
 </script>
 <style>
-.declare {
-    margin-top: 80px;
+#rgpd {
+    width: 60%;
+    margin: 0 auto;
 }
 </style>

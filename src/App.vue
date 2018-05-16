@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-heatmap>
-		<v-toolbar color="grey lighten-4" flat fixed>
+		<v-toolbar color="grey lighten-4" flat>
 			<v-toolbar-title>
 				<router-link to="/"><img src="./assets/logo.svg" value="center" width="70" height="60"></router-link>
 			</v-toolbar-title>
@@ -8,7 +8,6 @@
 				<v-btn flat style="margin-left:50px" to="/">
 					<i class="material-icons">home</i>Accueil</v-btn>
 				<v-btn style="margin-left:60px" flat value="center" v-on:click="reload">
-
 					<i class="material-icons">refresh</i>
 					<span style="margin:10px;font-size:10px">Rafraîchir la page</span>
 				</v-btn>
