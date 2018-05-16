@@ -1,7 +1,5 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import { config } from './utils/config'
-
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import App from './App'
@@ -13,7 +11,7 @@ import io from 'socket.io-client'
 
 Vue.use(Vuetify)
 
-const socket = io.connect(config.socketio.uri)
+const socket = io.connect(process.env.SOCKETIO_URI)
 Vue.use(heatmap, {
 
   afterAdd(data) {
