@@ -1,21 +1,24 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import { config } from './utils/config'
+import { config } from './utils/config';
 
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import App from './App'
-import router from './router'
-import 'vuetify/dist/vuetify.min.css'
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import App from './App';
+import router from './router';
+import Buefy from 'buefy';
 
-import heatmap from 'vue-heatmapjs'
-import io from 'socket.io-client'
+import 'buefy/lib/buefy.css';
+import 'vuetify/dist/vuetify.min.css';
 
-Vue.use(Vuetify)
+import heatmap from 'vue-heatmapjs';
+import io from 'socket.io-client';
 
-const socket = io.connect(config.socketio.uri)
+Vue.use(Vuetify);
+Vue.use(Buefy);
+
+const socket = io.connect(config.socketio.uri);
 Vue.use(heatmap, {
-
   afterAdd(data) {
     const mouseEvent = {
       clientX: data.clientX,
@@ -35,12 +38,11 @@ Vue.use(heatmap, {
       value: data.value,
       x: data.x,
       y: data.y
-
-    }
-    socket.emit('feed', mouseEvent)
+    };
+    socket.emit('feed', mouseEvent);
   }
 });
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -48,4 +50,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});

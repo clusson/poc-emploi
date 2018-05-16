@@ -25,7 +25,8 @@ export default {
             msg: 'Bienvenue sur le site de POC Emploi',
             start: 'Déclarer ma situation'
         };
-    }
+    },
+    methods: {}
 };
 </script>
 <style>

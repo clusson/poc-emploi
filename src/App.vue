@@ -2,7 +2,7 @@
 	<div id="app" v-heatmap>
 		<v-toolbar color="grey lighten-4" flat fixed>
 			<v-toolbar-title>
-				<router-link to="/"><img src="./assets/logo.svg" width="70" height="60"></router-link>
+				<router-link to="/"><img src="./assets/logo.svg" value="center" width="70" height="60"></router-link>
 			</v-toolbar-title>
 			<v-toolbar-items class="hidden-sm">
 				<v-btn flat style="margin-left:50px" to="/">
@@ -13,7 +13,6 @@
 					<span style="margin:10px;font-size:10px">Rafraîchir la page</span>
 				</v-btn>
 			</v-toolbar-items>
-
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
 				<v-btn color="error">Fermer</v-btn>
@@ -26,6 +25,11 @@
 <script>
 export default {
     name: 'App',
+    data() {
+        return {
+            help: "Demander de l'aide"
+        };
+    },
     methods: {
         reload: function() {
             location.reload();

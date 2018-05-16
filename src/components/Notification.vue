@@ -1,6 +1,5 @@
 <template>
-	<v-app class="ok">
-		{{msg}}
+	<v-app>
 		<b-notification type="is-success" has-icon>
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id fermentum quam. Proin sagittis, nibh id hendrerit imperdiet, elit sapien laoreet elit
 		</b-notification>
@@ -9,19 +8,11 @@
 
 <script>
 export default {
-    name: 'Declare',
+    name: 'Notification',
     data() {
-        return {
-            msg: 'Bravo ! '
-        };
+        return {};
     }
 };
 </script>
 <style>
-.ok {
-    margin-top: 100px;
-}
-.bravo {
-    margin: 0 auto;
-}
 </style>
