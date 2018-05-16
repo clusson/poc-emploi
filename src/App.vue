@@ -16,7 +16,7 @@
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
       
-       <v-btn color="info" v-on:click="capture()">Activer Reco Faciale</v-btn>
+       <v-btn color="info" v-on:click="cameraOn = !cameraOn;capture();">{{message}}</v-btn>
        
        
 				<v-btn color="error">Fermer</v-btn>
@@ -37,6 +37,8 @@ export default {
     data() {
         return {
             help: "Demander de l'aide",
+            message:"Activer la reco faciale",
+            cameraOn: false,
             video: {},
             canvas: {},
            
@@ -64,6 +66,7 @@ export default {
         //this.captures.push(canvas.toDataURL("image/png"));
        
        const self = this;
+       //console.log(canvas.toDataURL("image/jpeg"))
         getEmotion(canvas.toDataURL("image/jpeg"))
         .then(function(emotionMax){
           if(emotionMax){
@@ -72,7 +75,12 @@ export default {
           }
           
         })
+        if(this.cameraOn){
+           this.message = 'Arretter la reco faciale'
         setTimeout(function(){ self.capture() }, 3000);
+        }else{
+          this.message = 'Activer la reco faciale'
+        }
        // console.log(context);
        // console.log(canvas.toDataURL("image/png"));
     },
