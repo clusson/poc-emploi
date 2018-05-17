@@ -1,5 +1,5 @@
 <template>
-	<div id="app" v-heatmap>
+	<div id="app" v-heatmap="heatmapOn">
 		<v-toolbar color="grey lighten-4" flat>
 			<v-toolbar-title>
 				<router-link to="/"><img src="./assets/logo.svg" value="center" width="70" height="60"></router-link>
@@ -14,14 +14,19 @@
 			</v-toolbar-items>
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
-
-				<v-btn color="info" v-on:click="cameraOn = !cameraOn;capture();">{{message}}</v-btn>
-
+				<v-btn flat v-on:click="cameraOn = !cameraOn;capture();">
+					<span>{{message}}</span>
+				</v-btn>
+				<v-btn flat v-on:click="heatmapOn = !heatmapOn;showHeatmap();">
+					<span>{{heatmap}}</span>
+				</v-btn>
+			</v-toolbar-items>
+			<div style="display:none">
+				<video hidden activated="false" ref="video" id="video" width="640" height="480" autoplay></video>
+				<canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
+			</div>
+			<v-toolbar-items>
 				<v-btn color="error">Fermer</v-btn>
-				<div style="display:none">
-					<video hidden activated="false" ref="video" id="video" width="640" height="480" autoplay></video>
-					<canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
-				</div>
 			</v-toolbar-items>
 		</v-toolbar>
 
@@ -30,14 +35,18 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { getEmotion, isAngry } from './workers/Emotion';
+
 export default {
     name: 'App',
     data() {
         return {
             help: "Demander de l'aide",
             message: 'Activer la reco faciale',
+            heatmap: 'Activer la heatmap',
             cameraOn: false,
+            heatmapOn: false,
             video: {},
             canvas: {}
         };
@@ -58,10 +67,10 @@ export default {
         capture() {
             this.canvas = this.$refs.canvas;
 
-            const context = this.canvas.getContext('2d').drawImage(this.video, 0, 0, 640, 480);
+            this.canvas.getContext('2d').drawImage(this.video, 0, 0, 640, 480);
 
             const self = this;
-            getEmotion(canvas.toDataURL('image/jpeg'));
+            getEmotion(self.canvas.toDataURL('image/jpeg'));
 
             if (isAngry()) {
                 self.snackbar();
@@ -74,6 +83,13 @@ export default {
                 }, 3000);
             } else {
                 this.message = 'Activer la reco faciale';
+            }
+        },
+        showHeatmap() {
+            if (this.heatmapOn) {
+                this.heatmap = 'Désactiver la heatmap';
+            } else {
+                this.heatmap = 'Activer la heatmap';
             }
         },
         snackbar() {

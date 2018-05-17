@@ -5,19 +5,23 @@ import Vuetify from 'vuetify';
 import App from './App';
 import router from './router';
 import Buefy from 'buefy';
-
+import axios from 'axios';
 import 'buefy/lib/buefy.css';
-import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css';
+import heatmap from 'vue-heatmapjs';
+import io from 'socket.io-client';
 
-import heatmap from 'vue-heatmapjs'
-import io from 'socket.io-client'
+Vue.use(Vuetify);
+Vue.use(Buefy);
 
-Vue.use(Vuetify)
-Vue.use(Buefy)
-
-const socket = io.connect(process.env.SOCKETIO_DEVOUR_URI)
-
+const socket = io.connect(process.env.SOCKETIO_DEVOUR_URI);
 Vue.use(heatmap, {
+  heatmapPreload: axios
+    .get('https://pocemploi.team-pdf.eu/click')
+    .then(response => response.data)
+    .catch(e => {
+      console.log(e);
+    }),
   afterAdd(data) {
     const mouseEvent = {
       x: data.x,
@@ -25,16 +29,21 @@ Vue.use(heatmap, {
       value: data.value,
       type: data.type,
       URI: data.target.baseURI
-    }
-    socket.emit('feed', mouseEvent)
+    };
+    socket.emit('feed', mouseEvent);
   }
-})
-Vue.config.productionTip = false
+});
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
-})
+  template: '<App/>',
+  data: function() {
+    return {
+      heatmap
+    };
+  }
+});

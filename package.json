@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "buefy": "^0.6.5",
     "common-env": "^6.1.0",
     "moment": "^2.22.1",
