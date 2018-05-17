@@ -15,13 +15,20 @@ Vue.use(Vuetify);
 Vue.use(Buefy);
 
 const socket = io.connect(process.env.SOCKETIO_DEVOUR_URI);
+
+let heatData = []
+
+axios
+  .get(process.env.RESTAPI_CLICK_URI)
+  .then(response =>
+    heatData.push(response.data)
+  )
+  .catch(e => {
+    console.error(e)
+  })
+
 Vue.use(heatmap, {
-  heatmapPreload: axios
-    .get('https://pocemploi.team-pdf.eu/click')
-    .then(response => response.data)
-    .catch(e => {
-      console.log(e);
-    }),
+  heatmapPreload: heatData,
   afterAdd(data) {
     const mouseEvent = {
       x: data.x,
@@ -41,7 +48,7 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  data: function() {
+  data: function () {
     return {
       heatmap
     };
