@@ -10,12 +10,12 @@ import 'buefy/lib/buefy.css';
 import 'vuetify/dist/vuetify.min.css';
 
 import heatmap from 'vue-heatmapjs';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 
 Vue.use(Vuetify);
 Vue.use(Buefy);
 
-const socket = io.connect(process.env.SOCKETIO_DEVOUR_URI)
+const socket = io.connect(process.env.SOCKETIO_DEVOUR_URI);
 
 Vue.use(heatmap, {
   afterAdd(data) {

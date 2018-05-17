@@ -14,23 +14,23 @@
 			</v-toolbar-items>
 			<v-spacer></v-spacer>
 			<v-toolbar-items>
-      
-       <v-btn color="info" v-on:click="cameraOn = !cameraOn;capture();">{{message}}</v-btn>
-       
-       
+
+				<v-btn color="info" v-on:click="cameraOn = !cameraOn;capture();">{{message}}</v-btn>
+
 				<v-btn color="error">Fermer</v-btn>
-        <div style="display:none"><video  hidden activated="false" ref="video" id="video" width="640" height="480" autoplay></video>
-       <canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
-       </div>
+				<div style="display:none">
+					<video hidden activated="false" ref="video" id="video" width="640" height="480" autoplay></video>
+					<canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
+				</div>
 			</v-toolbar-items>
 		</v-toolbar>
-   
+
 		<router-view/>
 	</div>
 </template>
 
 <script>
-import { getEmotion, isAngry } from './workers/Emotion'
+import { getEmotion, isAngry } from './workers/Emotion';
 export default {
     name: 'App',
     data() {
@@ -40,61 +40,61 @@ export default {
             cameraOn: false,
             video: {},
             canvas: {}
-        }
+        };
     },
     mounted() {
-        this.video = this.$refs.video
+        this.video = this.$refs.video;
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-                this.video.src = window.URL.createObjectURL(stream)
-                this.video.play()
-            })
+                this.video.src = window.URL.createObjectURL(stream);
+                this.video.play();
+            });
         }
     },
     methods: {
         reload: function() {
-            location.reload()
+            location.reload();
         },
         capture() {
-            this.canvas = this.$refs.canvas
+            this.canvas = this.$refs.canvas;
 
-            const context = this.canvas.getContext('2d').drawImage(this.video, 0, 0, 640, 480)
+            const context = this.canvas.getContext('2d').drawImage(this.video, 0, 0, 640, 480);
 
-            const self = this
-            getEmotion(canvas.toDataURL('image/jpeg'))
+            const self = this;
+            getEmotion(canvas.toDataURL('image/jpeg'));
 
             if (isAngry()) {
-                self.snackbar()
+                self.snackbar();
             }
 
             if (this.cameraOn) {
-                this.message = 'Arrêter la reco faciale'
+                this.message = 'Arrêter la reco faciale';
                 setTimeout(function() {
-                    self.capture()
-                }, 3000)
+                    self.capture();
+                }, 3000);
             } else {
-                this.message = 'Activer la reco faciale'
+                this.message = 'Activer la reco faciale';
             }
         },
         snackbar() {
             this.$snackbar.open({
                 duration: 60000,
-                message: "Demander de l'aide :",
+                message: 'Un problème ?',
                 type: 'is-success',
                 position: 'is-bottom-right',
-                actionText: 'Appeller un agent en cliquant ici',
+                actionText: 'Appeler un agent en cliquant ici',
                 queue: true,
                 onAction: () => {
                     this.$toast.open({
                         message: 'Merci de patienter, un agent va se rendre disponible',
                         duration: 10000,
                         queue: true
-                    })
+                    });
                 }
-            })
+            });
         }
     }
-}
+};
 </script>
 
 <style>
